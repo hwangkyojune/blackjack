@@ -25,7 +25,8 @@ def shuffle_deck():
 # player class는 소유한 카드 리스트(cards), 점수(total_score) 속성과 카드 뽑기 함수가 있음
 class Player:
     #각 player마다 total_score 2장부터 시작
-        def __init__(self):
+        def __init__(self,name):
+            self.name = name
             #player_end는 player가 게임을 계속할지 정하는 속성
             self.player_end = False
             
