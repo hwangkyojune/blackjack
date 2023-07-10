@@ -108,13 +108,23 @@ def play_game(player : Player ,dealer : Player):
         if player.player_end and dealer.player_end:
             break
         print("===============================================================")
+    
+    #결과
+    print('\nThe result of the game')
+    print('Player score :', player_score)
+    print('Dealer score :', dealer_score)
+    if player.total_score < 21:
+        if player.total_score > dealer.total_score or dealer.total_score > 21:
+            print('Player win!')
+        elif player.total_score == dealer.total_score:
+            print('Push!')
+    elif player.total_score == 21:
+        if dealer.total_score == 21:
+            print('Push!')
+        else:
+            print('Blackjack! Player win!')
+    else:
+        print('Player lose!')
+        
 
-play_game(player1,dealer)
-
-if player1.total_score > dealer.total_score:
-    print("you win!")
-elif player1.total_score == dealer.total_score:
-    print("push")
-else :
-    print("dealer win!")
-
+play_game(player,dealer)
