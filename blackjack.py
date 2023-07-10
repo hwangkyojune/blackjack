@@ -118,6 +118,8 @@ def play_game(player : Player ,dealer : Player):
             print('Player win!')
         elif player.total_score == dealer.total_score:
             print('Push!')
+        else:
+            print('Player lose!')
     elif player.total_score == 21:
         if dealer.total_score == 21:
             print('Push!')
