@@ -107,7 +107,7 @@ def print_result(dealer, player):
         else:
             print(f'{player.name} : Blackjack! Win!')
     else:
-        print(f{'{plyaer.name} : Lose!')
+        print(f'{player.name} : Lose!')
 
 
 def play_game():
