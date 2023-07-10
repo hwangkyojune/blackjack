@@ -75,7 +75,8 @@ def player_turn(player:Player):
         elif answer == 'stay':
             print('Player stay!')
             player.player_end = True
-            
+
+#딜러턴
 #dealer_turn은 점수 17이하면 계속 진행, 21넘으면 dealer 패배
 def dealer_turn(dealer:Player):
     print('Dealer hand :', dealer.cards)
@@ -89,6 +90,23 @@ def dealer_turn(dealer:Player):
     else:
         print('Dealer hit!')
         dealer.deal_card()
+        
+#게임 결과 출력 함수
+def print_result(dealer, player):
+    if player.total_score < 21:
+        if player.total_score > dealer.total_score or dealer.total_score > 21:
+            print(f'{player.name} : Win!')
+        elif player.total_score == dealer.total_score:
+            print(f'{player.name} : Push!')
+        else:
+            print(f'{player.name} : Lose!')
+    elif player.total_score == 21:
+        if dealer.total_score == 21:
+            print(f'{player.name} : Push!')
+        else:
+            print(f'{player.name} : Blackjack! Win!')
+    else:
+        print(f{'{plyaer.name} : Lose!')
 
 
 def play_game(player : Player ,dealer : Player):
