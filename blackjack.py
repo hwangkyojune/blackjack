@@ -82,10 +82,10 @@ def dealer_turn(dealer:Player):
     print('Dealer score :', dealer.total_score)
     if dealer.total_score > 21:
         print('Dealer bust!')
-        dealer.dealer_end = True
+        dealer.player_end = True
     elif dealer.total_score >= 17:
         print('Dealer stay!')
-        dealer.dealer_end = True
+        dealer.player_end = True
     else:
         print('Dealer hit!')
         dealer.deal_card()
