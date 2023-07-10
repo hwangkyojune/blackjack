@@ -78,7 +78,17 @@ def player_turn(player:Player):
             
 #dealer_turn은 점수 17이하면 계속 진행, 21넘으면 dealer 패배
 def dealer_turn(dealer:Player):
-    pass
+    print('Dealer hand :', dealer.cards)
+    print('Dealer score :', dealer.total_score)
+    if dealer.total_score > 21:
+        print('Dealer bust!')
+        dealer.dealer_end = True
+    elif dealer.total_score >= 17:
+        print('Dealer stay!')
+        dealer.dealer_end = True
+    else:
+        print('Dealer hit!')
+        dealer.deal_card()
 
 player1 = Player()
 dealer = Player()
