@@ -111,8 +111,8 @@ def play_game(player : Player ,dealer : Player):
     
     #결과
     print('\nThe result of the game')
-    print('Player score :', player_score)
-    print('Dealer score :', dealer_score)
+    print('Player score :', player.total_score)
+    print('Dealer score :', dealer.total_score)
     if player.total_score < 21:
         if player.total_score > dealer.total_score or dealer.total_score > 21:
             print('Player win!')
