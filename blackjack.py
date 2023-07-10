@@ -93,7 +93,6 @@ def dealer_turn(dealer:Player):
 
 def play_game(player : Player ,dealer : Player):
     print("Welcome to BlackJack!")
-    shuffle_deck()
     
     while True :
         if not player.player_end :
@@ -125,6 +124,7 @@ def play_game(player : Player ,dealer : Player):
     else:
         print('Player lose!')
         
+shuffle_deck()
 
 player = Player()
 dealer = Player()
