@@ -80,15 +80,14 @@ def player_turn(player:Player):
 def dealer_turn(dealer:Player):
     pass
 
-player1 = Player()
-dealer = Player()
-
 
 def play_game(player : Player ,dealer : Player):
     print("Welcome to BlackJack!")
     shuffle_deck()
 
-
+    player = Player()
+    dealer = Player()
+    
     while True :
         if not player.player_end :
             player_turn(player)
@@ -98,6 +97,7 @@ def play_game(player : Player ,dealer : Player):
         
         if player.player_end and dealer.player_end:
             break
+        print("===============================================================")
 
 play_game(player1,dealer)
 
