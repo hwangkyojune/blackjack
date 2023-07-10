@@ -59,10 +59,10 @@ class Player:
 #playerturn 함수는 게임을 진행할지 멈출지 결정 멈춘다면 Player class의 속성 player_end True변경, 진행한다면 메소드 player.deal_card() 호출
 #뽑고 21넘으면 강제종료 & 패배 
 def player_turn(player:Player):
-    print('Player hand :', player.cards)
-    print('Player score :', player.total_score)
+    print('{} hand : {}'.format(player.name, player.cards))
+    print('{} score : {}'.format(player.name, player.total_score))
     if player.total_score > 21:
-        print('Player bust!')
+        print('{} bust!'.format(player.name))
         player.player_end = True
     elif player.total_score == 21:
         print('Blackjack!')
@@ -70,10 +70,10 @@ def player_turn(player:Player):
     else:
         answer = input('Do you want to hit or stay? ')
         if answer == 'hit':
-            print('Player hit!')
+            print('{} hit!'.format(player.name))
             player.deal_card()
         elif answer == 'stay':
-            print('Player stay!')
+            print('{} stay!'.format(player.name))
             player.player_end = True
             
 #dealer_turn은 점수 17이하면 계속 진행, 21넘으면 dealer 패배
@@ -91,41 +91,40 @@ def dealer_turn(dealer:Player):
         dealer.deal_card()
 
 
-def play_game(player : Player ,dealer : Player):
-    print("Welcome to BlackJack!")
+def play_game():
+    shuffle_deck()
+
+    num = int(input('How many people play? '))
+    players = []
+    for i in range(num):
+        player = Player('Player{}'.format(i+1))
+        players.append(player)
+    dealer = Player('Dealer')
+    
+    print("Welcome to BlackJack!\n")
     
     while True :
-        if not player.player_end :
-            player_turn(player)
+        for player in players:
+            if not player.player_end :
+                player_turn(player)
 
         if not dealer.player_end :
             dealer_turn(dealer)
-        
-        if player.player_end and dealer.player_end:
+
+        all_player_end = all(player.player_end for player in players)
+        if all_player_end and dealer.player_end:
             break
         print("===============================================================")
     
-    #결과
-    print('\nThe result of the game')
-    print('Player score :', player.total_score)
-    print('Dealer score :', dealer.total_score)
-    if player.total_score < 21:
-        if player.total_score > dealer.total_score or dealer.total_score > 21:
-            print('Player win!')
-        elif player.total_score == dealer.total_score:
-            print('Push!')
-        else:
-            print('Player lose!')
-    elif player.total_score == 21:
-        if dealer.total_score == 21:
-            print('Push!')
-        else:
-            print('Blackjack! Player win!')
-    else:
-        print('Player lose!')
-        
-shuffle_deck()
+    # 딜러와 플레이어들의 total_score 출력
+    print('\nTotal scores of the game')
+    for player in players:
+        print("{}'s total score : {}".format(player.name, player.total_score))
+    print("Dealer's total score :", dealer.total_score)
 
-player = Player()
-dealer = Player()
-play_game(player,dealer)
+    print('\nThe result of the game')
+    for player in players:
+        print_result(dealer, player)
+        
+
+play_game()
