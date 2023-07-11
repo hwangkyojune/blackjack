@@ -12,37 +12,36 @@ for shape in shapes:
 len(decks)
 
 #score setting
-#뽑은 rank마다의 점수를 저장
+#store score of ranks
 scores = [min(i,10) for i in range(1,len(ranks)+1)]
 score_of_rank = dict(zip(ranks,scores))
 score_of_rank["Ace"] = 11
 print(score_of_rank)
 
-#카드 섞기
+#function for mixing card
 def shuffle_deck():
     random.shuffle(decks)
 
-# player class는 소유한 카드 리스트(cards), 점수(total_score) 속성과 카드 뽑기 함수가 있음
+# Class Player has drawn cards list(cards), score(total_score) attribute and methods deal card, scoring 
 class Player:
-    #각 player마다 total_score 2장부터 시작
+    #first, player start with two cards
         def __init__(self,name):
             self.name = name
-            #player_end는 player가 게임을 계속할지 정하는 속성
+            #player_end is attribute that decide drawning card
             self.player_end = False
             
             self.total_score = 0
             self.cards = []
             self.deal_card()
             self.deal_card()
-            #self.total_score = self.scoring()
 
-        #가지고 있는 카드의 점수 update
+        #Update scoring whenever dealing card
         def scoring(self):
-            #player_ranks는 player가 소유하고 있는 각 카드들의 rank 리스트
+            #Player_ranks is rank list Player has
             player_ranks = [score.split(' ')[1] for score in self.cards]
-            #각 rank에 해당하는 score들을 합친 것이 total_score
+            #Total_score is sum of scores matching ranks 
             total_score = sum([score_of_rank[rank] for rank in player_ranks])
-            #Ace가 있고, 21이 넘을 경우 10 제거
+            #When Player has Ace and score is higher than 21, subtract 10
             for rank in player_ranks :
                   if total_score < 21 :
                         break
@@ -52,13 +51,12 @@ class Player:
             return total_score
 
         
-        #카드 뽑기 & 카드 소유에 추가, 총 점수 업데이트
+        #Function draw card
         def deal_card(self):
               self.cards.append(decks.pop(-1))
               self.total_score = self.scoring()
 
-#playerturn 함수는 게임을 진행할지 멈출지 결정 멈춘다면 Player class의 속성 player_end True변경, 진행한다면 메소드 player.deal_card() 호출
-#뽑고 21넘으면 강제종료 & 패배 
+#playerturn function decide whether continue game
 def player_turn(player:Player):
     print('{} hand : {}'.format(player.name, player.cards))
     print('{} score : {}'.format(player.name, player.total_score))
@@ -77,8 +75,7 @@ def player_turn(player:Player):
             print('{} stay!'.format(player.name))
             player.player_end = True
 
-#딜러턴
-#dealer_turn은 점수 17이하면 계속 진행, 21넘으면 dealer 패배
+#dealer draw cards until score is greater than 17
 def dealer_turn(dealer:Player):
     print('Dealer hand :', dealer.cards)
     print('Dealer score :', dealer.total_score)
@@ -92,7 +89,7 @@ def dealer_turn(dealer:Player):
         print('Dealer hit!')
         dealer.deal_card()
         
-#게임 결과 출력 함수
+#Function printing result
 def print_result(dealer, player):
     if player.total_score < 21:
         if player.total_score > dealer.total_score or dealer.total_score > 21:
@@ -121,23 +118,29 @@ def play_game():
     dealer = Player('Dealer')
     
     print("Welcome to BlackJack!\n")
+    
     turn = 1
     while True :
         print('Turn',turn)
         for player in players:
             if not player.player_end :
                 player_turn(player)
-
-        if not dealer.player_end :
-            dealer_turn(dealer)
-
+        
         all_player_end = all(player.player_end for player in players)
-        if all_player_end and dealer.player_end:
+        if all_player_end:
             break
         print("===============================================================")
         turn += 1
+
+
+    print('\nDealer turn!!')
+    while True :
+        if not dealer.player_end :
+            dealer_turn(dealer)
+        else:
+            break
     
-    # 딜러와 플레이어들의 total_score 출력
+    # print score of dealer and all players
     print('\nTotal scores of the game')
     for player in players:
         print("{}'s total score : {}".format(player.name, player.total_score))
