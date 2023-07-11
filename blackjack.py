@@ -123,14 +123,18 @@ def play_game():
         for player in players:
             if not player.player_end :
                 player_turn(player)
-
-        if not dealer.player_end :
-            dealer_turn(dealer)
-
+        
         all_player_end = all(player.player_end for player in players)
-        if all_player_end and dealer.player_end:
+        if all_player_end:
             break
         print("===============================================================")
+
+    print('\nDealer turn!!')
+    while True :
+        if not dealer.player_end :
+            dealer_turn(dealer)
+        else:
+            break
     
     # print score of dealer and all players
     print('\nTotal scores of the game')
