@@ -121,8 +121,9 @@ def play_game():
     dealer = Player('Dealer')
     
     print("Welcome to BlackJack!\n")
-    
+    turn = 1
     while True :
+        print('Turn',turn)
         for player in players:
             if not player.player_end :
                 player_turn(player)
@@ -134,6 +135,7 @@ def play_game():
         if all_player_end and dealer.player_end:
             break
         print("===============================================================")
+        turn += 1
     
     # 딜러와 플레이어들의 total_score 출력
     print('\nTotal scores of the game')
